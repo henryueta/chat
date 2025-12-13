@@ -1,6 +1,6 @@
 
 const onFetch = (data,treatment)=>{
-
+    
     fetch(data.url,{
         method:data.method,
         headers: {

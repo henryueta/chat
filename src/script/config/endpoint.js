@@ -5,6 +5,9 @@ const route_endpoint = {
 
     auth:{
         post:main_endpoint+"auth/post?teste=1"
+    },
+    message:{
+        post:main_endpoint+"message/post"
     }
 
 }

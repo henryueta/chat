@@ -1,0 +1,14 @@
+
+#message-list-container{
+    display: flex;
+    flex-direction:column ;
+}
+
+.internal-message{
+    text-align: end;
+    
+}
+
+.external-message{
+    text-align: start;
+}

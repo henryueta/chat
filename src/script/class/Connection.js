@@ -1,12 +1,40 @@
-import { route_endpoint,main_endpoint } from "../config/endpoint.js";
+import { main_endpoint } from "../config/endpoint.js";
 
 class Connection {
 
-    constructor(){
-        this.socket = io(main_endpoint);
+    constructor(token){
+        this.socket = io(main_endpoint,{
+            autoConnect:true,
+            reconnection:true,
+            reconnectionAttempts:Infinity,
+            reconnectionDelay:1000,
+            auth:{
+                token
+            }
+        });
+        // this.socket.on("message", (stream) => {
+            
+        //     if(stream.id !== token){
+        //         console.log("Mensagem:", stream);
+        //     }
+
+        // });
     }
 
+    onEmitMessage(value,onResponse){
+        if(!!value){
+            onResponse(value)
+            this.socket.emit('message',value);
+        }
+       
+    }
 
+    onStreamEvent(event,onEvent){
+        this.socket.on(event,(stream)=>{
+            onEvent(stream);
+            return
+        })
+    }
 
 }
 

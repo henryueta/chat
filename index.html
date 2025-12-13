@@ -6,27 +6,37 @@
     <title>Chat</title>
     <script src="/node_modules/socket.io/client-dist/socket.io.min.js">
     </script>
+    <link rel="stylesheet" href="./src/style/index.css">
+    <link rel="stylesheet" href="./src/style/chat.css">
 </head>
 <body>
     
-    <div class="auth-container">
+    <dialog id="auth-dialog">
+        <div class="auth-container">
+            <form id="auth-form">
+                <label for="password-input">
+                    <p>Senha</p>
+                    <input type="password" id="password-input">
+                </label>
+                <button type="submit">
+                    Entrar
+                </button>
+            </form>
+        </div>
+    </dialog>
 
-        <form id="auth-form">
+    <section class="chat-section">
+            <div id="message-list-container">
 
-            <label for="password-input">
-                <p>Senha</p>
-                <input type="password" id="password-input">
-            </label>
-            <button type="submit">
-                Entrar
-            </button>
-        </form>
-
-    </div>
-<!-- 
-    <input id="message-input" type="text" >
-    <button id="submit-message">Enviar</button> -->
-
+            </div>
+            <div class="message-input-container">
+                <form id="message-form">
+                    <input id="message-input" type="text" >
+                    <button id="submit-message">Enviar</button>   
+                </form>
+            </div>
+    </section>
+    
     <script src="../src/script/index.js" type="module">
     </script>
 

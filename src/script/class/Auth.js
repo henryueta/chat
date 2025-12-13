@@ -5,12 +5,16 @@ import { Connection } from "./Connection.js";
 class Auth {
 
     constructor(){
-        // localStorage.setItem("token",token);
+        
         this.token = localStorage.getItem("token");
-        this.connection = null;
+        this.connection = (
+            !!this.token 
+            ? new Connection(this.token)
+            : null
+        );
     }
 
-    onLogin(password){
+    onLogin(password,treatment){
 
         if(!password){
             throw new Error("Campo senha inválido");
@@ -25,7 +29,14 @@ class Auth {
         },{
             onThen(res){
                 console.log(res.data)
-                this.connection = new Connection(password);
+                localStorage.setItem("token",res.data.token);
+                this.token = localStorage.getItem("token");
+                this.connection = new Connection(token);
+                if(treatment){
+                    if(treatment.onThen){
+                        treatment.onThen(res);
+                    }
+                }
             },
         })
     }

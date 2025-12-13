@@ -1,13 +1,12 @@
 import { Auth } from "./class/Auth.js";
+import { Chat } from "./class/Chat.js";
+import { Dialog } from "./class/Dialog.js";
 import { Form } from "./class/Form.js";
-import { main_endpoint} from "./config/endpoint.js";
-
-// const connection = new Connection("Cell#1994")
 
 const auth = new Auth();
+let chat = new Chat(auth.token,auth.connection);
 
-
-
+const auth_dialog = new Dialog("#auth-dialog","Verificação",null,!auth.token);
 
 const auth_form = new Form("#auth-form",[
     {
@@ -16,6 +15,15 @@ const auth_form = new Form("#auth-form",[
         name:"password"
     }
 ],(data)=>{
-    auth.onLogin(data.get("password"))
+    auth.onLogin(data.get("password"),{
+        onThen(){
+            const current_auth = new Auth();
+            chat = new Chat(current_auth.token,auth.connection)
+            auth_dialog.onSwitch(false);
+        }
+    })
 })
+
+
+
 
