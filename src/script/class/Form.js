@@ -42,7 +42,7 @@ class Form {
             }
             console.log(field)
             form_data.append(field.name,field.element.value)
-
+            field.element.value = "";
         }
 
         if(this.defaultOnSubmit){

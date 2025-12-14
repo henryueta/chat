@@ -4,7 +4,9 @@ import { Dialog } from "./class/Dialog.js";
 import { Form } from "./class/Form.js";
 
 const auth = new Auth();
-let chat = new Chat(auth.token,auth.connection);
+
+let chat = new Chat(auth.token,auth.user,auth.connection);
+chat.onLoadMessageList(auth.token,auth.user);
 
 const auth_dialog = new Dialog("#auth-dialog","Verificação",null,!auth.token);
 
@@ -18,7 +20,9 @@ const auth_form = new Form("#auth-form",[
     auth.onLogin(data.get("password"),{
         onThen(){
             const current_auth = new Auth();
-            chat = new Chat(current_auth.token,auth.connection)
+            console.log("current",current_auth);
+            chat = new Chat(current_auth.token,current_auth.user,current_auth.connection);
+            chat.onLoadMessageList(current_auth.token,current_auth.user);
             auth_dialog.onSwitch(false);
         }
     })

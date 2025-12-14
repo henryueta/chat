@@ -4,10 +4,14 @@ const main_endpoint = "http://localhost:2010/";
 const route_endpoint = {
 
     auth:{
-        post:main_endpoint+"auth/post?teste=1"
+        post:main_endpoint+"auth/post"
     },
     message:{
-        post:main_endpoint+"message/post"
+        post:main_endpoint+"message/post",
+        get:main_endpoint+"message/get"
+    },
+    checkout:{
+        get:main_endpoint+"checkout/get"
     }
 
 }
