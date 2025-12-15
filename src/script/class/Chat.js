@@ -23,7 +23,7 @@ class Chat {
                     : 'internal'
                 ),{
                     content:stream.content,
-                    creation_date:stream.creation_date,
+                    creation_hour:stream.creation_hour,
                     username:stream.username
                 })
                 return
@@ -36,15 +36,9 @@ class Chat {
                 name:"message"
             }
         ],(data)=>{
-            const message = new Messenger(data.get("message"),"text",token)
+            const messenger = new Messenger(data.get("message"),"text",token,connection)
 
-            message.onSend({
-                onThen(){
-                    connection.onEmitMessage(data.get("message"),()=>{
-                        // onSendMessage()
-                    });
-                }
-            });
+            messenger.onSend();
         })
         : null;
 
@@ -56,16 +50,36 @@ class Chat {
         return 
     }
 
+    onLoadMessageListPeriod(date,is_today){
+
+        const message_list_period = document.createElement("div");
+        message_list_period.setAttribute("class","message-list-period");
+        if(!date){
+            throw new Error("Período de registro de mensagens inválido")
+        }
+        message_list_period.textContent = (
+            !!is_today
+            ? "Hoje"
+            : date
+        );
+        this.#message_list.append(message_list_period);
+
+    }
+
     onLoadMessageList(token,user){
 
         const onLoadMessageOfConnection = (message_list)=>{
             
             for(const message of message_list){
+                if(!!message.is_first_of_day){
+                    this.onLoadMessageListPeriod(message.creation_date,message.is_today)
+                }
                 this.onLoadMessage((
                     message.username === user.username
                     ? 'internal'
                     : 'external'
                 ),message)
+                
             }
 
         }

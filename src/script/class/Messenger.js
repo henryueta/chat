@@ -3,45 +3,38 @@ import { onFetch } from "../function/fetch.js";
 
 class Messenger{
 
-    constructor(content,type,token){
+    #content;
+    #type;
+    #token;
+    #connection;
+
+    constructor(content,type,token,connection){
 
         if(!token){
-            console.log(token)
             throw new Error("Token inválido")
         }
 
-        this.content = content;
-        this.type = type;
-        this.token = token;
-        console.log(this.type)
+        if(!(connection !== null && connection !== undefined)){
+            throw new Error("Conexão de envio inválida")
+        }
+
+        this.#content = content;
+        this.#type = type;
+        this.#token = token;
+        this.#connection = connection;
     }
 
     onSend(treatment){
  
-        onFetch({
-            url:route_endpoint.message.post+"?token="+this.token,
-            method:"POST",
-            body:{
-                content:this.content,
-                type:this.type
-            }
-        },{
-            onThen(res){
-                console.log(res)
-                if(treatment){
-                    if(treatment.onThen){
-                        treatment.onThen(res);
-                    }
-                }
-            },
-            onCatch(){
-                if(treatment){
-                    if(treatment.onCatch){
-                        treatment.onCatch();
-                    }
+        this.#connection.onEmitMessage(this.#content,(data)=>{
+            
+            if(!!treatment){
+                if(treatment.onThen){
+                    treatment.onThen(data)
                 }
             }
-        })
+
+        });
 
     }
 

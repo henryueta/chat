@@ -1,14 +1,68 @@
+.message-input-container{
+    width: 100%;
+}
+
+.message-input-container>*>input{
+    width: 95%;
+}
+
+.message-input-container>*>button{
+    width: 4%;
+}
 
 #message-list-container{
     display: flex;
     flex-direction:column ;
+    padding: 0.8rem;
+}
+
+#message-list-container>*:not(.message-list-period){
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.5rem;
+    width: auto;
+    /* max-height: 500px; */
+    text-align: start;
+}
+
+#message-list-container>*:not(.message-list-period)>*{
+    max-width: 30%;
+}
+
+#message-list-container>*:not(.message-list-period) header{
+    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 0.2rem;
+}
+
+#message-list-container>*:not(.message-list-period)>p{
+    word-wrap: break-word;
+  overflow-wrap: break-word; 
+    padding: 0.8rem;
 }
 
 .internal-message{
-    text-align: end;
-    
+    align-items: end;
+}
+
+.internal-message p{
+    background-color: rgb(0, 140, 255);
+    color: white;
+    border-radius: 1rem 0rem 1rem 1rem;
 }
 
 .external-message{
-    text-align: start;
+    align-items: start;
+}
+
+.external-message p{
+    background-color: rgb(209, 243, 255);
+    border-radius: 0em 1rem 1rem 1rem;
+}
+
+.message-list-period{
+    padding: 0.5rem;
+    text-align: center;
 }
