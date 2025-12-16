@@ -1,19 +1,40 @@
+.chat-section{
+    padding: 0.5rem;
+}
+
 .message-input-container{
     width: 100%;
+    padding: 0.5rem;
+    height: 7dvh;
+    position: fixed;
+    bottom: 0%;
+    left: 0%;
 }
 
-.message-input-container>*>input{
-    width: 95%;
+.message-input-container>#message-form{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
-.message-input-container>*>button{
-    width: 4%;
+.message-input-container>#message-form>input{
+    height: 100%;
+    padding: 0.3rem;
+    width: 90%;
+    outline: none;
+}
+
+.message-input-container>#message-form>button{
+    width: 10%;
 }
 
 #message-list-container{
     display: flex;
     flex-direction:column ;
     padding: 0.8rem;
+    height: 93dvh;
+    font-size: 1.1rem;
+    overflow: auto;
 }
 
 #message-list-container>*:not(.message-list-period){
@@ -23,12 +44,15 @@
     gap: 0.2rem;
     padding: 0.5rem;
     width: auto;
-    /* max-height: 500px; */
+    /* max-height: 500px; 
+    3
+    225
+    180*/
     text-align: start;
 }
 
 #message-list-container>*:not(.message-list-period)>*{
-    max-width: 30%;
+    max-width: 50%;
 }
 
 #message-list-container>*:not(.message-list-period) header{
